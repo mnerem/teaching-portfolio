@@ -1,0 +1,31 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+  - caption: Semesters
+    chapters:
+    - file: 202110-Fall-2021/2021-Fall-Classes.md
+      sections:
+      - file: 202110-Fall-2021/PHYS103/2021-Fall-PHYS103-syllabus.md
+    - file: 201801-Fall-2018.md
+    - file: 201702-Spring-2018/201702-Spring-2018.md
+      sections:
+      - file: 201702-Spring-2018/PHYS104/PHYS104-20133.md
+        sections:
+        - file: 201702-Spring-2018/PHYS104/PHYS104-20133-syllabus.md
+        - file: 201702-Spring-2018/PHYS104/PHYS104-20133-Course-Materials.ipynb
+        - file: 201702-Spring-2018/PHYS104/PHYS104-Grade-Analysis.ipynb
+        - file: 201702-Spring-2018/PHYS104/PHYS104-SOS.md
+      - file: 201702-Spring-2018/PHYS112/PHYS112-Landing-Page.md
+        sections:
+        - file: 201702-Spring-2018/PHYS112/PHYS112-syllabus.md
+        - file: 201702-Spring-2018/PHYS112/PHYS112-Course-Materials.ipynb
+        - file: 201702-Spring-2018/PHYS112/PHYS112-Grade-Analysis.ipynb
+        - file: 201702-Spring-2018/PHYS112/PHYS112-SOS.ipynb
+  - caption: Additional Info.
+    chapters:
+    - file: CV.md
+    - file: Appendix.ipynb    
+    

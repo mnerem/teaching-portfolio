@@ -1,0 +1,118 @@
+Traceback (most recent call last):
+  File "/home/mpnerem/.local/lib/python3.6/site-packages/jupyter_cache/executors/utils.py", line 56, in single_nb_execution
+    record_timing=False,
+  File "/home/mpnerem/.local/lib/python3.6/site-packages/nbclient/client.py", line 1112, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/mpnerem/.local/lib/python3.6/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/home/mpnerem/.local/lib/python3.6/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/usr/lib/python3.6/asyncio/base_events.py", line 484, in run_until_complete
+    return future.result()
+  File "/home/mpnerem/.local/lib/python3.6/site-packages/nbclient/client.py", line 554, in async_execute
+    cell, index, execution_count=self.code_cells_executed + 1
+  File "/home/mpnerem/.local/lib/python3.6/site-packages/nbclient/client.py", line 857, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/home/mpnerem/.local/lib/python3.6/site-packages/nbclient/client.py", line 760, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+
+# import modules
+import pandas as pd
+from matplotlib import pyplot as plt
+from matplotlib import rc
+# set font to tex interpreter
+rc('text',usetex=True)
+rc('font',family='serif')
+import numpy as np
+plt.ion()
+
+sos=pd.read_excel('../../../../Student-Opinion-Surveys/201703-PHYS104-SOS.xlsx',sheet_name='sos')
+gb=pd.read_csv('gc_201820_SPRING_PHYS104N_20116_fullgc.csv')
+
+def MakeHistogram(x,*args):
+    plt.subplots(figsize=(13,7))
+    FACECOLOR=np.array([80,146,220])/255
+
+    if np.max(x)>100:
+        bins2plot=np.arange(0,np.max(x)+5,5)
+    else:
+        bins2plot=np.arange(0,105,5)
+    n, bins, patches = plt.hist(x,bins=bins2plot,
+                                edgecolor=None,
+                                linewidth=.1,
+                                facecolor=FACECOLOR,
+                                )
+
+    # Gaussian model of data
+    MEAN = np.mean(x)
+    STD = np.std(x)
+    VAR = np.var(x)
+    HEIGHT=max(n)
+    def ygauss(X):
+        return np.exp(-(X-MEAN)**2/(2*STD**2))
+
+    # define range of x values to plot the fits to histogram
+    if STD*2+MEAN > np.max(x):
+        xfitmax = STD*2+MEAN 
+    else:
+        xfitmax = np.max(x)
+    if np.max(x) > 100:
+        xfitmax = np.max(x)
+    if xfitmax < 100:
+        xfitmax = 100
+
+    # plot vertical bars representing the mean and standard deviations on histogram
+    xstd = np.array([-2*STD, -1*STD, 1*STD, 2*STD]+MEAN)
+    ystd = HEIGHT*ygauss(xstd)
+    plt.plot([MEAN, MEAN], [0, HEIGHT*ygauss(MEAN)],
+             color='red',
+             linestyle='--',
+             linewidth=1,
+            )
+    for ii in np.arange(0, xstd.shape[0]):
+        plt.plot([xstd[ii],xstd[ii]],[0,ystd[ii]] ,
+                 color='black',
+                 linewidth=1,
+                 linestyle='--'
+                )
+
+    # plot curve of gaussian fit to the histogram
+    xfit = np.linspace(0,xfitmax,100)
+    yfit = HEIGHT*ygauss(xfit)
+    plt.plot(xfit,yfit,linewidth=1)
+
+    # add title and axis labels
+    plt.text(200,375,
+             'mean $=$ %.2f \n median $=$ %.2f \n std $=$ %.2f' %(MEAN,np.median(x), STD),
+             va='center',
+             ha='right',
+             backgroundcolor='white',
+             fontsize=16,
+             bbox=dict(boxstyle='round', facecolor='wheat'),
+             transform=None
+            )
+    plt.xlabel('Percent Grade',fontsize=18)
+    plt.ylabel('Count',fontsize=18)
+    if len(args)!=0:
+        plt.title(args[0],fontsize=20)
+    plt.xticks(np.arange(0,xfitmax+5,5),fontsize=16)
+    plt.yticks(fontsize=16)
+    plt.grid(True)
+    
+
+MakeHistogram(gb['Course Grade'],'PHYS104 20133 Course Grades')
+MakeHistogram(gb['Lab'],'PHYS104 20133 Lab Grades')
+MakeHistogram(gb['HW'],'PHYS104 20133 HW Grades')
+
+'''
+------------------
+
+[0;36m  File [0;32m"<ipython-input-1-4a11465f30ba>"[0;36m, line [0;32m89[0m
+[0;31m    '''[0m
+[0m       ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m EOF while scanning triple-quoted string literal
+
+SyntaxError: EOF while scanning triple-quoted string literal (<ipython-input-1-4a11465f30ba>, line 89)
+
