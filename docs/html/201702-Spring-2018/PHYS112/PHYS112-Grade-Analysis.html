@@ -502,34 +502,37 @@ that are struggling the most with the material.</p>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">X</span><span class="o">-</span><span class="n">MEAN</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">STD</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 
     <span class="c1"># define range of x values to plot the fits to histogram</span>
-    <span class="k">if</span> <span class="n">STD</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="n">MEAN</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-        <span class="n">xfitmax</span> <span class="o">=</span> <span class="n">STD</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="n">MEAN</span> 
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">xfitmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    
+    <span class="n">xfitmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
         <span class="n">xfitmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">xfitmax</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
         <span class="n">xfitmax</span> <span class="o">=</span> <span class="mi">100</span>
 
-    <span class="c1"># plot vertical bars representing the mean and standard deviations on histogram</span>
-    <span class="n">xstd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">STD</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">STD</span><span class="p">,</span> <span class="mi">1</span><span class="o">*</span><span class="n">STD</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">STD</span><span class="p">]</span><span class="o">+</span><span class="n">MEAN</span><span class="p">)</span>
-    <span class="n">ystd</span> <span class="o">=</span> <span class="n">HEIGHT</span><span class="o">*</span><span class="n">ygauss</span><span class="p">(</span><span class="n">xstd</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">MEAN</span><span class="p">,</span> <span class="n">MEAN</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="o">*</span><span class="n">ygauss</span><span class="p">(</span><span class="n">MEAN</span><span class="p">)],</span>
-             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
-             <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
-             <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="p">)</span>
-    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xstd</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">xstd</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span><span class="n">xstd</span><span class="p">[</span><span class="n">ii</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">ystd</span><span class="p">[</span><span class="n">ii</span><span class="p">]]</span> <span class="p">,</span>
-                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
-                 <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                 <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span>
-                <span class="p">)</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    if STD*2+MEAN &gt; np.max(x):</span>
+<span class="sd">        xfitmax = STD*2+MEAN </span>
+<span class="sd">        </span>
+<span class="sd">    # plot vertical bars representing the mean and standard deviations on histogram</span>
+<span class="sd">    xstd = np.array([-2*STD, -1*STD, 1*STD, 2*STD]+MEAN)</span>
+<span class="sd">    ystd = HEIGHT*ygauss(xstd)</span>
+<span class="sd">    plt.plot([MEAN, MEAN], [0, HEIGHT*ygauss(MEAN)],</span>
+<span class="sd">             color=&#39;red&#39;,</span>
+<span class="sd">             linestyle=&#39;--&#39;,</span>
+<span class="sd">             linewidth=1,</span>
+<span class="sd">            )</span>
+<span class="sd">    for ii in np.arange(0, xstd.shape[0]):</span>
+<span class="sd">        plt.plot([xstd[ii],xstd[ii]],[0,ystd[ii]] ,</span>
+<span class="sd">                 color=&#39;black&#39;,</span>
+<span class="sd">                 linewidth=1,</span>
+<span class="sd">                 linestyle=&#39;--&#39;</span>
+<span class="sd">                )</span>
 
-    <span class="c1"># plot curve of gaussian fit to the histogram</span>
-    <span class="n">xfit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">xfitmax</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
-    <span class="n">yfit</span> <span class="o">=</span> <span class="n">HEIGHT</span><span class="o">*</span><span class="n">ygauss</span><span class="p">(</span><span class="n">xfit</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xfit</span><span class="p">,</span><span class="n">yfit</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="sd">    # plot curve of gaussian fit to the histogram</span>
+<span class="sd">    xfit = np.linspace(0,xfitmax,100)</span>
+<span class="sd">    yfit = HEIGHT*ygauss(xfit)</span>
+<span class="sd">    plt.plot(xfit,yfit,linewidth=1)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="c1"># add title and axis labels</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">375</span><span class="p">,</span>
